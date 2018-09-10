@@ -9,6 +9,7 @@ namespace HW6
 {
     class Program
     {
+
         static void Main(string[] args)
         {
             #region HW6 A)
@@ -75,41 +76,104 @@ namespace HW6
                 Console.WriteLine("Can't find name.");
             }
 
-            #region don't work
+
+            for (int i = 0; i < phoneBook.Count; i++)
+            {
+                if (phoneBook.Values.ElementAt(i).StartsWith("80"))
+                {
+                    phoneBook[phoneBook.Keys.ElementAt(i)] = "+3" + phoneBook.Values.ElementAt(i);
+                }
+            }
             //foreach (var num in phoneBook)
             //{
-            //    if (Convert.ToString(num.Value).StartsWith("80"))
+            //    if (num.Value.StartsWith("80"))
             //    {
-            //        using (var writeNewPhones = new StreamWriter("New.txt"))
-            //        {
-            //            foreach (var phoneNumber in phoneBook)
-            //            {
-            //                writeNewPhones.WriteLine("+3" + phoneNumber.Value);
-            //            }
-            //        }
+            //        phoneBook[num.Key]  = "+3" + num.Value;
             //    }
             //    else
             //    {
             //        Console.WriteLine("FFFFF");
             //    }
             //}
-            #endregion
+
 
             using (var writeNewPhones = new StreamWriter("New.txt"))
             {
                 foreach (var phoneNumber in phoneBook)
                 {
-                    writeNewPhones.WriteLine("+3" + phoneNumber.Value);
+                    writeNewPhones.WriteLine(phoneNumber.Value);
                 }
             }
 
             Console.WriteLine("\nPress any key to continue...");
             Console.ReadKey();
+            Console.Clear();
             #endregion
             #region HW6 B)
+            Console.WriteLine("Input numbers from... console / file");
+            string readFrom = Console.ReadLine();
+
+            switch (readFrom)
+            {
+                case "console":
+                case "Console":
+                case "c":
+                    int numb = 1;
+                    int c = 0;
+                    while (c < 10 && numb < 99)
+                    {
+                        try
+                        {
+                            numb = ReadConsoleNumber(numb, 100);
+                            c++;
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e.Message);
+                        }
+                    }
+                    break;
+                case "file":
+                case "File":
+                case "f":
+
+                    Console.WriteLine(ReadFileNumber(1, 100));
+
+                    break;
+                default:
+                    Console.WriteLine("You did not select: console or file");
+                    break;
+                    //goto case "console";
+            }
 
             Console.WriteLine("\nPress any key to exit...");
             Console.ReadKey();
+        }
+
+        static int ReadFileNumber(int startF, int endF)
+        {
+
+        }
+        static int ReadConsoleNumber(int start, int end)
+        {
+            //Console.WriteLine("\nPlease enter 10 integer number:");
+            //try
+            //{
+            int number = Convert.ToInt32(Console.ReadLine());
+            if (number > start && number < end)
+            {
+                return number;
+            }
+            else
+            {
+                throw new OverflowException("Number not in the range");
+            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine($"Error occurred: {ex.Message}");
+            //}
+            //return 0;            
             #endregion
         }
     }
