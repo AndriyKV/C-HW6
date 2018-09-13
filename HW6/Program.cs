@@ -57,6 +57,7 @@ namespace HW6
             finally { writePhones.Close(); }
 
             Console.WriteLine("Enter the name from the phone book:");
+
             #region other way
             //string name = Console.ReadLine();
             //if (phoneBook.ContainsKey(name))
@@ -84,18 +85,6 @@ namespace HW6
                     phoneBook[phoneBook.Keys.ElementAt(i)] = "+3" + phoneBook.Values.ElementAt(i);
                 }
             }
-            //foreach (var num in phoneBook)
-            //{
-            //    if (num.Value.StartsWith("80"))
-            //    {
-            //        phoneBook[num.Key]  = "+3" + num.Value;
-            //    }
-            //    else
-            //    {
-            //        Console.WriteLine("FFFFF");
-            //    }
-            //}
-
 
             using (var writeNewPhones = new StreamWriter("New.txt"))
             {
@@ -112,53 +101,61 @@ namespace HW6
             #region HW6 B)
             Console.WriteLine("Input numbers from... console / file");
             string readFrom = Console.ReadLine();
+            #region Other try
+            //switch (readFrom)
+            //{
+            //    case "console":
+            //    case "Console":
+            //    case "c":
+            //        int numb = 1;
+            //        int c = 0;
+            //        while (c < 10 && numb < 99)
+            //        {
+            //            try
+            //            {
+            //                numb = ReadConsoleNumber(numb, 100);
+            //                c++;
+            //            }
+            //            catch (Exception e)
+            //            {
+            //                Console.WriteLine(e.Message);
+            //            }
+            //        }
+            //        break;
+            //    case "file":
+            //    case "File":
+            //    case "f":
 
-            switch (readFrom)
+            //        Console.WriteLine(ReadFileNumber(1, 100));
+
+            //        break;
+            //    default:
+            //        Console.WriteLine("You did not select: console or file");
+            //        break;
+            //        //goto case "console";
+            //}
+            #endregion
+            int numb = 1;
+            int c = 0;
+            while (c < 10 && numb < 99)
             {
-                case "console":
-                case "Console":
-                case "c":
-                    int numb = 1;
-                    int c = 0;
-                    while (c < 10 && numb < 99)
-                    {
-                        try
-                        {
-                            numb = ReadConsoleNumber(numb, 100);
-                            c++;
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.Message);
-                        }
-                    }
-                    break;
-                case "file":
-                case "File":
-                case "f":
-
-                    Console.WriteLine(ReadFileNumber(1, 100));
-
-                    break;
-                default:
-                    Console.WriteLine("You did not select: console or file");
-                    break;
-                    //goto case "console";
+                try
+                {
+                    numb = ReadNumber(numb, 100);
+                    c++;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
 
             Console.WriteLine("\nPress any key to exit...");
             Console.ReadKey();
         }
 
-        static int ReadFileNumber(int startF, int endF)
+        static int ReadNumber(int start, int end)
         {
-
-        }
-        static int ReadConsoleNumber(int start, int end)
-        {
-            //Console.WriteLine("\nPlease enter 10 integer number:");
-            //try
-            //{
             int number = Convert.ToInt32(Console.ReadLine());
             if (number > start && number < end)
             {
@@ -167,13 +164,7 @@ namespace HW6
             else
             {
                 throw new OverflowException("Number not in the range");
-            }
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine($"Error occurred: {ex.Message}");
-            //}
-            //return 0;            
+            }          
             #endregion
         }
     }
